@@ -80,8 +80,13 @@ Variabel yang perlu diisi:
 
 - `TURSO_DATABASE_URL` — URL database Turso (contoh: `libsql://nama-db.turso.io`).
 - `TURSO_AUTH_TOKEN` — token autentikasi Turso.
+- `ADMIN_PASSWORD` — password untuk membuka halaman admin `/admin` dan endpoint daftar pendaftar.
 
-Jika keduanya kosong (khusus development), backend otomatis memakai SQLite lokal di `data/pendaftaran.db`.
+Jika variabel Turso kosong (khusus development), backend otomatis memakai SQLite lokal di `data/pendaftaran.db`.
+
+### Halaman Admin
+
+Buka `/admin` untuk melihat daftar pendaftar. Halaman ini dilindungi password — masukkan `ADMIN_PASSWORD` yang sudah dikonfigurasi di environment.
 
 ### Deploy ke Vercel
 

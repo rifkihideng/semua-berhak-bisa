@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import { getDb } from "../lib/db.js";
 import { validatePendaftaran } from "../lib/pendaftaran.js";
+import { isPasswordValid } from "../lib/auth.js";
 
 // Muat file .env dari folder server/
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -41,7 +42,19 @@ app.post("/api/pendaftaran", async (req, res) => {
   }
 });
 
+app.post("/api/admin/login", (req, res) => {
+  const { password } = req.body || {};
+  if (isPasswordValid(password)) {
+    return res.json({ ok: true });
+  }
+  res.status(401).json({ error: "Password salah." });
+});
+
 app.get("/api/pendaftaran", async (req, res) => {
+  if (!isPasswordValid(req.get("x-admin-password"))) {
+    return res.status(401).json({ error: "Tidak diizinkan." });
+  }
+
   try {
     const db = await getDb();
     const rs = await db.execute("SELECT * FROM pendaftar ORDER BY id DESC");

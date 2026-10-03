@@ -1,15 +1,19 @@
 import { getDb } from "../lib/db.js";
 import { validatePendaftaran } from "../lib/pendaftaran.js";
+import { isPasswordValid } from "../lib/auth.js";
 
 export default async function handler(req, res) {
-  const db = await getDb();
-
   if (req.method === "GET") {
+    if (!isPasswordValid(req.headers["x-admin-password"])) {
+      return send(res, 401, { error: "Tidak diizinkan." });
+    }
+    const db = await getDb();
     const rs = await db.execute("SELECT * FROM pendaftar ORDER BY id DESC");
     return send(res, 200, { data: rs.rows });
   }
 
   if (req.method === "POST") {
+    const db = await getDb();
     const { data, error } = validatePendaftaran(parseBody(req));
     if (error) {
       return send(res, 400, { error });
