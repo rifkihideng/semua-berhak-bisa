@@ -15,7 +15,7 @@ export default function Hero() {
         setTyped(TYPED_TEXT.slice(0, i));
         if (i >= TYPED_TEXT.length) clearInterval(interval);
       }, 45);
-    }, 800);
+    }, 1800);
 
     return () => {
       clearTimeout(start);

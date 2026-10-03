@@ -5,11 +5,16 @@ export default function Preloader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const startTime = Date.now();
+    const MIN_DURATION = 1800;
     let fadeTimer;
 
-    // Sembunyikan preloader mengikuti kecepatan loading halaman sebenarnya
+    // Tampilkan preloader minimal 1,8 detik, lalu memudar halus.
+    // Tetap mengikuti kecepatan loading asli bila halaman lebih lambat.
     const hide = () => {
-      fadeTimer = setTimeout(() => setLoading(false), 700);
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, MIN_DURATION - elapsed);
+      fadeTimer = setTimeout(() => setLoading(false), delay);
     };
 
     if (document.readyState === "complete") {
