@@ -50,7 +50,7 @@ const settings = {
 
 export default function Testimoni() {
   return (
-    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
+    <section className="bg-light dark:bg-dark-gray w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container flex justify-center flex-wrap">
         <h2 className="w-full font-inter text-2xl text-center font-bold text-black-soft dark:text-light md:text-3xl">
           Kata <span className="text-firstcol">Mereka</span>
@@ -64,7 +64,7 @@ export default function Testimoni() {
           <Slider {...settings}>
             {testimoni.map((t) => (
               <div key={t.nama} className="px-3">
-                <div className="h-full bg-white dark:bg-dark-gray rounded-xl shadow p-6 flex flex-col">
+                <div className="h-full bg-white dark:bg-black-soft rounded-xl shadow p-6 flex flex-col">
                   <p className="md:text-sm text-black-soft dark:text-light flex-1">
                     &ldquo;{t.teks}&rdquo;
                   </p>

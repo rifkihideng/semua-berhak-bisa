@@ -6,7 +6,7 @@ import Wilayah from "../components/about/Wilayah";
 import Galeri from "../components/about/Galeri";
 import Faq from "../components/about/Faq";
 
-export default function Layanan() {
+export default function Tentang() {
   usePageTitle("Tentang Komunitas | Semua Berhak Bisa");
   return (
     <>

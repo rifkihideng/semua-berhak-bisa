@@ -14,6 +14,7 @@
   --color-dark-gray: #343434;
   --color-black-soft: #0c090a;
   --color-light: #f4f0ec;
+  --color-white: #fbfaf7;
 }
 
 @layer components {
@@ -43,18 +44,27 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #20ace1;
+  color: #fff;
+}
+
 :root {
-  --bg-color: #ffffff;
-  --text-color: #0c090a;
-  --bg-from: #ffffff;
-  --bg-to: #0ea5e9;
+  --bg-color: #f5f2ed;
+  --text-color: #3a3530;
+  --bg-from: #f5f2ed;
+  --bg-to: #4fc1e9;
 }
 
 html.dark {
   --bg-color: #0c090a;
   --text-color: #f4f0ec;
   --bg-from: #0b0b0f;
-  --bg-to: #0ea5e9;
+  --bg-to: #4fc1e9;
 }
 
 body {
@@ -65,6 +75,8 @@ body {
     background-color 0.3s,
     color 0.3s;
   font-size: 12px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 @keyframes move {

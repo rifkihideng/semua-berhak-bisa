@@ -4,19 +4,19 @@ export default function Konsultasi() {
   const navigate = useNavigate();
 
   return (
-    <section className="w-full flex justify-center px-6 py-16 md:py-20">
-      <div className="container flex justify-center flex-wrap">
-        <h2 className="w-full font-inter text-2xl text-center font-bold text-black-soft dark:text-light md:text-3xl">
-          Masih Bingung?
-        </h2>
-        <p className="text-center mt-2 md:text-base text-black-soft dark:text-light mb-10 max-w-md md:max-w-xl">
-          Baca ketentuan dan alur pendaftaran agar kamu memahami proses belajar,
-          jadwal, serta aturan yang berlaku dengan jelas.
-        </p>
-        <div className="w-full flex justify-center">
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
+      <div className="container">
+        <div className="rounded-2xl bg-gradient-to-r from-firstcol to-[#0e7490] text-white text-center shadow-lg p-8 md:p-14">
+          <h2 className="font-inter text-2xl font-bold md:text-3xl">
+            Masih Bingung?
+          </h2>
+          <p className="mt-3 md:text-base max-w-xl mx-auto text-white/90">
+            Baca ketentuan dan alur pendaftaran agar kamu memahami proses
+            belajar, jadwal, serta aturan yang berlaku dengan jelas.
+          </p>
           <button
             onClick={() => navigate("/ketentuan")}
-            className="btn-template font-semibold md:text-sm"
+            className="mt-8 bg-white text-firstcol font-semibold rounded px-6 py-3 md:text-sm hover:bg-light transition-colors"
           >
             Lihat Ketentuan
           </button>

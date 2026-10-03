@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="theme-bg pt-16 md:pt-20 flex flex-wrap justify-center text-white">
       <div className="container">
-        <div className="px-6 pb-4 flex flex-wrap justify-between md:px-10">
+        <div className="px-6 pb-4 flex flex-wrap justify-between md:px-12">
           <div className="flex items-start gap-x-3">
             <img src={logo} alt="logo" className="w-8" />
             <div>
@@ -81,7 +81,7 @@ export default function Footer() {
 
         <div className="w-full flex justify-center items-center mt-6 border-t py-4">
           <p className="md:text-sm">
-            Copyright &copy; 2026 Semua Berhak Bisa. All right reserved.
+            Copyright &copy; 2026 Semua Berhak Bisa. All rights reserved.
           </p>
         </div>
       </div>

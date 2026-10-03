@@ -4,7 +4,7 @@ import online from "../../assets/img/online.webp";
 
 export default function MetodeBelajar() {
   return (
-    <section className="bg-light dark:bg-dark-gray w-full flex justify-center px-6 py-16 md:px-10 md:py-20">
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container flex flex-wrap justify-between gap-10">
         <div className="w-full lg:w-2/5">
           <h2 className="text-2xl font-inter font-bold text-black-soft dark:text-light leading-tight md:text-3xl">

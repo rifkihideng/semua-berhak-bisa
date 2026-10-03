@@ -26,18 +26,27 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-transparent bg-opacity-70 backdrop-blur-sm fixed top-0 left-0 z-10 w-full px-6 py-1 flex justify-center items-center shadow-md md:px-20">
+    <header className="bg-white/80 dark:bg-black-soft/80 backdrop-blur-md fixed top-0 left-0 z-10 w-full px-6 flex justify-center items-center shadow-sm md:px-12">
       <div className="container mx-auto">
         <nav className="flex justify-between items-center h-16">
-          <div className="flex justify-start ">
+          <div className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="w-8 md:w-10" />
+            <span className="hidden sm:inline font-inter font-bold text-black-soft dark:text-light md:text-base">
+              #SemuaBerhakBisa
+            </span>
           </div>
 
-          <ul className="hidden md:flex justify-center gap-8 font-semibold">
+          <ul className="hidden md:flex items-center gap-8 font-semibold">
             <li>
               <NavLink
                 to="/"
-                className="flex py-2 md:text-sm hover:text-firstcol hover-underline"
+                className={({ isActive }) =>
+                  `flex py-2 md:text-sm hover-underline ${
+                    isActive
+                      ? "text-firstcol"
+                      : "text-black-soft dark:text-light hover:text-firstcol"
+                  }`
+                }
               >
                 Beranda
               </NavLink>
@@ -45,7 +54,13 @@ export default function Navbar() {
             <li>
               <NavLink
                 to="/tentang"
-                className="flex py-2 md:text-sm hover:text-firstcol hover-underline"
+                className={({ isActive }) =>
+                  `flex py-2 md:text-sm hover-underline ${
+                    isActive
+                      ? "text-firstcol"
+                      : "text-black-soft dark:text-light hover:text-firstcol"
+                  }`
+                }
               >
                 Tentang Komunitas
               </NavLink>
@@ -53,7 +68,13 @@ export default function Navbar() {
             <li>
               <NavLink
                 to="/layanan"
-                className="flex py-2 md:text-sm hover:text-firstcol hover-underline"
+                className={({ isActive }) =>
+                  `flex py-2 md:text-sm hover-underline ${
+                    isActive
+                      ? "text-firstcol"
+                      : "text-black-soft dark:text-light hover:text-firstcol"
+                  }`
+                }
               >
                 Bidang Layanan
               </NavLink>
@@ -63,7 +84,7 @@ export default function Navbar() {
                 href={LINKS.whatsapp}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 md:mt-0 flex justify-center btn-template"
+                className="btn-template font-semibold md:text-sm"
               >
                 Mulai Konsultasi
               </a>
@@ -105,7 +126,13 @@ export default function Navbar() {
                 <NavLink
                   to="/"
                   onClick={() => setMenuOpen(false)}
-                  className="flex py-1 md:text-sm hover:text-firstcol hover-underline"
+                  className={({ isActive }) =>
+                    `flex py-1 md:text-sm hover-underline ${
+                      isActive
+                        ? "text-firstcol"
+                        : "text-black-soft dark:text-light hover:text-firstcol"
+                    }`
+                  }
                 >
                   Beranda
                 </NavLink>
@@ -114,7 +141,13 @@ export default function Navbar() {
                 <NavLink
                   to="/tentang"
                   onClick={() => setMenuOpen(false)}
-                  className="flex py-1 md:text-sm hover:text-firstcol hover-underline"
+                  className={({ isActive }) =>
+                    `flex py-1 md:text-sm hover-underline ${
+                      isActive
+                        ? "text-firstcol"
+                        : "text-black-soft dark:text-light hover:text-firstcol"
+                    }`
+                  }
                 >
                   Tentang Komunitas
                 </NavLink>
@@ -123,7 +156,13 @@ export default function Navbar() {
                 <NavLink
                   to="/layanan"
                   onClick={() => setMenuOpen(false)}
-                  className="flex py-1 md:text-sm hover:text-firstcol hover-underline"
+                  className={({ isActive }) =>
+                    `flex py-1 md:text-sm hover-underline ${
+                      isActive
+                        ? "text-firstcol"
+                        : "text-black-soft dark:text-light hover:text-firstcol"
+                    }`
+                  }
                 >
                   Bidang Layanan
                 </NavLink>

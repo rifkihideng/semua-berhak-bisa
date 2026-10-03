@@ -1,6 +1,6 @@
 export default function KenapaKami() {
   return (
-    <section className="w-full flex justify-center px-6 py-16 md:py-20">
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container flex justify-center flex-wrap">
         <div className="mb-10">
           <h2 className="font-inter text-2xl text-center font-bold text-black-soft dark:text-light md:text-3xl">
@@ -49,15 +49,13 @@ export default function KenapaKami() {
 function Item({ title, text }) {
   return (
     <details className="group bg-light dark:bg-dark-gray rounded-lg p-4">
-      <summary className="select-none flex cursor-pointer list-none items-center justify-between text-sm md:text-base">
+      <summary className="select-none flex cursor-pointer list-none items-center justify-between gap-3 text-sm md:text-base font-semibold text-black-soft dark:text-light">
         {title}
         <span className="transition-transform group-open:rotate-180">
-          <i className="fa-solid text-[16px] text-black-soft dark:text-light transition-all duration-500 ease md:text-lg">
-            
-          </i>
+          <i className="fa-solid fa-chevron-down text-firstcol text-[16px] transition-transform duration-500 ease md:text-lg"></i>
         </span>
       </summary>
-      <p className="mt-3 md:text-sm">{text}</p>
+      <p className="mt-3 md:text-sm text-black-soft dark:text-light">{text}</p>
     </details>
   );
 }

@@ -4,9 +4,9 @@ import rifki from "../../assets/img/mentor/rifki.webp";
 import sahal from "../../assets/img/mentor/sahal.webp";
 import yordan from "../../assets/img/mentor/yordan.webp";
 
-export default function Layanan() {
+export default function Mentor() {
   return (
-    <section className="w-full flex justify-center px-6 py-20 md:px-12 md:py-20">
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container">
         <div className="flex flex-wrap justify-center">
           <h2 className="mb-10 font-inter text-2xl text-center font-bold text-black-soft dark:text-light md:text-3xl">
@@ -73,7 +73,7 @@ export default function Layanan() {
 function Card({ img, nama, ig, li, bidang, col, deskripsi }) {
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-      <div className="bg-white rounded-xl shadow p-4">
+      <div className="bg-white dark:bg-dark-gray rounded-xl shadow p-4">
         <div className="w-full h-48 bg-radial from-[#115E7B] to-firstcol rounded-xl mb-4 relative">
           <img
             src={img}
@@ -83,21 +83,33 @@ function Card({ img, nama, ig, li, bidang, col, deskripsi }) {
         </div>
 
         <div className="flex items-center justify-between mb-1">
-          <h3 className="font-bold text-lg text-black-soft">{nama}</h3>
-          <div className="flex gap-2">
-            <a href={ig} target="_blank">
+          <h3 className="font-bold text-lg text-black-soft dark:text-light">
+            {nama}
+          </h3>
+          <div className="flex gap-2 text-firstcol">
+            <a
+              href={`https://${ig}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Instagram ${nama}`}
+            >
               <i className="fa-brands text-[20px]"></i>
             </a>
-            <a href={li} target="_blank">
+            <a
+              href={`https://${li}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`LinkedIn ${nama}`}
+            >
               <i className="fa-brands text-[20px]"></i>
             </a>
           </div>
         </div>
 
-        <p className={`${col} text-sm font-semibold text-dark-gray mb-1`}>
+        <p className={`${col} text-sm font-semibold mb-1`}>
           Mentor {bidang}
         </p>
-        <p className="text-sm text-dark-gray">{deskripsi}</p>
+        <p className="text-sm text-black-soft dark:text-light">{deskripsi}</p>
       </div>
     </div>
   );

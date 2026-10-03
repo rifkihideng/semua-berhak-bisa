@@ -50,7 +50,7 @@ function Counter({ nilai, suffix }) {
 
 export default function Statistik() {
   return (
-    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
+    <section className="bg-light dark:bg-dark-gray w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container">
         <div className="flex flex-wrap justify-center gap-8 md:gap-16">
           {statistik.map((s, i) => (

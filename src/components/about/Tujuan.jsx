@@ -1,6 +1,6 @@
-export default function Layanan() {
+export default function Tujuan() {
   return (
-    <section className="w-full flex justify-center px-6 py-10 md:px-12 md:py-12">
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container">
         <div className="flex flex-wrap justify-between space-y-6 md:space-x-10">
           <div className="w-full md:w-[30%]">
