@@ -15,7 +15,7 @@ export default function KerjaSama() {
 
           <div className="w-full flex justify-center">
             <a
-              href={LINKS.whatsapp}
+              href={LINKS.kolaborasi}
               target="_blank"
               rel="noreferrer"
               className="btn-template font-semibold md:text-sm"
