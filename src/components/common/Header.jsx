@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/img/logo.webp";
+import { LINKS } from "../../lib/links";
 import moon from "../../assets/icons/moon.webp";
 import sun from "../../assets/icons/sun.webp";
 
@@ -59,7 +60,9 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#"
+                href={LINKS.whatsapp}
+                target="_blank"
+                rel="noreferrer"
                 className="mt-3 md:mt-0 flex justify-center btn-template"
               >
                 Mulai Konsultasi
@@ -126,7 +129,12 @@ export default function Navbar() {
                 </NavLink>
               </li>
               <li>
-                <a href="#" className="mt-2 flex justify-center btn-template">
+                <a
+                  href={LINKS.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 flex justify-center btn-template"
+                >
                   Mulai Konsultasi
                 </a>
               </li>

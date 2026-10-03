@@ -52,7 +52,7 @@ function Item({ title, text }) {
       <summary className="select-none flex cursor-pointer list-none items-center justify-between text-sm md:text-base">
         {title}
         <span className="transition-transform group-open:rotate-180">
-          <i class="fa-solid text-[16px] text-black-soft dark:text-light transition-all duration-500 ease md:text-lg">
+          <i className="fa-solid text-[16px] text-black-soft dark:text-light transition-all duration-500 ease md:text-lg">
             
           </i>
         </span>

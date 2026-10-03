@@ -1,13 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-export default function Konsultasi({ data }) {
+export default function Konsultasi() {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (!data) {
-      navigate("/404");
-    }
-  };
 
   return (
     <section className="w-full flex justify-center px-6 py-16 md:py-20">
@@ -21,7 +15,7 @@ export default function Konsultasi({ data }) {
         </p>
         <div className="w-full flex justify-center">
           <button
-            onClick={handleClick}
+            onClick={() => navigate("/ketentuan")}
             className="btn-template font-semibold md:text-sm"
           >
             Lihat Ketentuan

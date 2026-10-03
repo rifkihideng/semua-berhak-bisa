@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.webp";
+import { LINKS } from "../../lib/links";
 
 export default function Footer() {
   return (
@@ -15,34 +17,34 @@ export default function Footer() {
                 Bayar kami dengan senyumanmu.
               </p>
               <div className="flex gap-x-1 underline md:gap-x-2">
-                <a href="#" className="md:text-sm">
+                <Link to="/" className="md:text-sm">
                   Home
-                </a>
-                <a href="#" className="md:text-sm">
+                </Link>
+                <Link to="/tentang" className="md:text-sm">
                   Tentang Komunitas
-                </a>
-                <a href="#" className="md:text-sm">
+                </Link>
+                <Link to="/layanan" className="md:text-sm">
                   Bidang Layanan
-                </a>
+                </Link>
               </div>
 
               <div className="mt-4 md:hidden">
                 <h2 className="text-lg font-semibold">Hubungi Kami:</h2>
                 <div className="flex items-center gap-x-3">
                   <a
-                    href="#"
+                    href={LINKS.instagram} target="_blank" rel="noreferrer"
                     className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors"
                   >
                     <i className="fa-brands text-[18px]"></i>
                   </a>
                   <a
-                    href="#"
+                    href={LINKS.tiktok} target="_blank" rel="noreferrer"
                     className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors"
                   >
                     <i className="fa-brands text-[16px]"></i>
                   </a>
                   <a
-                    href="#"
+                    href={LINKS.whatsapp} target="_blank" rel="noreferrer"
                     className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors"
                   >
                     <i className="fa-brands text-[18px]"></i>
@@ -56,19 +58,19 @@ export default function Footer() {
             <h2 className="text-lg font-semibold md:text-xl">Hubungi Kami:</h2>
             <div className="flex items-center gap-x-3">
               <a
-                href="#"
+                href={LINKS.instagram} target="_blank" rel="noreferrer"
                 className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors md:w-8 md:h-8"
               >
                 <i className="fa-brands text-[18px] md:text-[22px]"></i>
               </a>
               <a
-                href="#"
+                href={LINKS.tiktok} target="_blank" rel="noreferrer"
                 className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors md:w-8 md:h-8"
               >
                 <i className="fa-brands text-[16px] md:text-[22px]"></i>
               </a>
               <a
-                href="#"
+                href={LINKS.whatsapp} target="_blank" rel="noreferrer"
                 className="w-7 h-7 rounded-full flex justify-center items-center hover:bg-dark-gray transition-colors md:w-8 md:h-8"
               >
                 <i className="fa-brands text-[18px] md:text-[22px]"></i>

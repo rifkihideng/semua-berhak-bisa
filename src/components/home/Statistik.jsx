@@ -1,0 +1,67 @@
+import { useEffect, useRef, useState } from "react";
+
+const statistik = [
+  { nilai: 4, suffix: "", label: "Bidang Akademi" },
+  { nilai: 5, suffix: "", label: "Mentor" },
+  { nilai: 7, suffix: "", label: "Wilayah Offline" },
+  { nilai: 100, suffix: "+", label: "Peserta Belajar" },
+];
+
+function Counter({ nilai, suffix }) {
+  const ref = useRef(null);
+  const [angka, setAngka] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+
+        const durasi = 1200;
+        const mulai = performance.now();
+        const tick = (now) => {
+          const p = Math.min((now - mulai) / durasi, 1);
+          setAngka(Math.round(nilai * p));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [nilai]);
+
+  return (
+    <span
+      ref={ref}
+      className="font-inter font-bold text-3xl md:text-4xl text-firstcol"
+    >
+      {angka}
+      {suffix}
+    </span>
+  );
+}
+
+export default function Statistik() {
+  return (
+    <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
+      <div className="container">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+          {statistik.map((s) => (
+            <div key={s.label} className="w-40 text-center">
+              <Counter nilai={s.nilai} suffix={s.suffix} />
+              <p className="mt-1 md:text-sm text-black-soft dark:text-light">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

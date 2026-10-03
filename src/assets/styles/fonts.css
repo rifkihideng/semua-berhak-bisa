@@ -1,62 +1,62 @@
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Thin.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Light.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Regular.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Medium.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-SemiBold.ttf") format("truetype");
+  src: url("../fonts/FiraSans-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Bold.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-ExtraBold.ttf") format("truetype");
+  src: url("../fonts/FiraSans-ExtraBold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Fira Sans";
-  src: url("../assets/fonts/FiraSans-Black.ttf") format("truetype");
+  src: url("../fonts/FiraSans-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Inter";
-  src: url("../assets/fonts/Inter-VariableFont_opsz,wght.ttf")
+  src: url("../fonts/Inter-VariableFont_opsz,wght.ttf")
     format("truetype");
   font-weight: 100 900;
   font-style: normal;
@@ -64,7 +64,7 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("../assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf")
+  src: url("../fonts/Inter-Italic-VariableFont_opsz,wght.ttf")
     format("truetype");
   font-weight: 100 900;
   font-style: italic;

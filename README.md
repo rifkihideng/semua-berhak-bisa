@@ -1,16 +1,58 @@
-# React + Vite
+# Semua Berhak Bisa
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website resmi komunitas **#SemuaBerhakBisa** — komunitas belajar teknologi informasi gratis untuk semua kalangan. Website ini berisi informasi program akademi (Pemrograman, Desain Grafis, Jaringan Komputer, dan Microsoft Office), profil mentor, wilayah belajar offline, serta alur pendaftaran.
 
-Currently, two official plugins are available:
+## Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Beranda** — hero, bidang akademi, alasan belajar bersama, statistik komunitas, metode belajar, testimoni, dan CTA ketentuan.
+- **Tentang Komunitas** — tujuan, visi & misi, profil mentor, zona wilayah offline, dokumentasi kegiatan, dan FAQ.
+- **Bidang Layanan** — penjelasan bidang akademi dan ajakan kerja sama.
+- **Ketentuan** — alur pendaftaran, jadwal belajar, dan aturan.
+- **Dark mode** — toggle tema terang/gelap (tersimpan di `localStorage`).
+- **Responsif** — tampilan optimal untuk mobile dan desktop.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/) + [Vite 7](https://vite.dev/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [React Router 7](https://reactrouter.com/)
+- [Framer Motion](https://motion.dev/) dan [react-slick](https://react-slick.neostack.com/)
+- [Font Awesome 7](https://fontawesome.com/) (via CDN)
 
-## Expanding the ESLint configuration
+## Menjalankan Secara Lokal
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Prasyarat: Node.js 18+ dan npm.
+
+```bash
+npm install
+npm run dev
+```
+
+Buka http://localhost:5173.
+
+Build produksi:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Konfigurasi Link
+
+Semua link komunitas (Instagram, TikTok, WhatsApp, dan formulir pendaftaran) terpusat di [`src/lib/links.js`](src/lib/links.js). Cukup edit satu file untuk mengganti seluruh link di website.
+
+## Struktur Folder
+
+```
+src/
+├── components/
+│   ├── about/      # Bagian halaman Tentang (Tujuan, VisiMisi, Mentor, Wilayah, Galeri, FAQ)
+│   ├── common/     # Header & Footer
+│   ├── home/       # Bagian halaman Beranda (Hero, KenapaKami, Statistik, MetodeBelajar, Testimoni, Konsultasi)
+│   └── services/   # Bagian halaman Layanan (Bidang, KerjaSama)
+├── lib/            # Konfigurasi link terpusat
+├── pages/          # Halaman (Home, Tentang, Layanan, Ketentuan, NotFound)
+├── routes/         # Konfigurasi route
+└── assets/         # Gambar, font, dan styles
+```
+

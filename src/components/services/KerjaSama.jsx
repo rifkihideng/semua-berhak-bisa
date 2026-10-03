@@ -1,13 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { LINKS } from "../../lib/links";
 
-export default function KerjaSama({ data }) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (!data) {
-      navigate("/404");
-    }
-  };
+export default function KerjaSama() {
   return (
     <section className="w-full flex justify-center px-6 py-20 md:px-12 md:py-20">
       <div className="container flex justify-center flex-wrap">
@@ -21,12 +14,14 @@ export default function KerjaSama({ data }) {
           </p>
 
           <div className="w-full flex justify-center">
-            <button
-              onClick={handleClick}
+            <a
+              href={LINKS.whatsapp}
+              target="_blank"
+              rel="noreferrer"
               className="btn-template font-semibold md:text-sm"
             >
               Diskusi Kolaborasi
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -30,22 +30,22 @@ export default function Layanan() {
 
           <div className="w-full md:w-[65%] space-y-2">
             <Paragraph
-              txt="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum vel
-              quam fugit, adipisci hic amet tempore ipsam, doloremque
-              asperiores, corporis eligendi dolore porro facere doloribus
-              molestias aliquam perferendis nemo! A."
+              txt="Semua Berhak Bisa adalah komunitas belajar teknologi
+              informasi yang digerakkan secara sukarela, agar setiap orang,
+              tanpa memandang latar belakang, dapat mengakses pembelajaran
+              IT yang terarah, konsisten, dan gratis."
             ></Paragraph>
             <Paragraph
-              txt="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum vel
-              quam fugit, adipisci hic amet tempore ipsam, doloremque
-              asperiores, corporis eligendi dolore porro facere doloribus
-              molestias aliquam perferendis nemo! A."
+              txt="Kami fokus pada empat bidang utama: pemrograman, desain
+              grafis, jaringan komputer, dan Microsoft Office. Setiap materi
+              disampaikan langsung oleh mentor praktisi aktif, sehingga yang
+              dipelajari relevan dengan kebutuhan dunia kerja."
             ></Paragraph>
             <Paragraph
-              txt="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum vel
-              quam fugit, adipisci hic amet tempore ipsam, doloremque
-              asperiores, corporis eligendi dolore porro facere doloribus
-              molestias aliquam perferendis nemo! A."
+              txt="Melalui jadwal belajar yang rutin dan pendampingan yang
+              interaktif, kami ingin membangun kebiasaan belajar berkelanjutan
+              serta membuka kesempatan yang sama bagi siapa pun untuk
+              berkembang di bidang teknologi."
             ></Paragraph>
           </div>
         </div>

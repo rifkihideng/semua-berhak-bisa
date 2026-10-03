@@ -17,6 +17,7 @@ export default function Layanan() {
             <Card
               img={ajril}
               nama="Ahmad Ajril Mumtazi"
+              deskripsi="Praktisi desain grafis yang fokus pada branding dan ilustrasi digital."
               ig="instagram.com/ahmadajrl_"
               li="linkedin.com/in/ahmad-ajril-mumtazi-35a540369/"
               bidang="Desain Grafis"
@@ -26,6 +27,7 @@ export default function Layanan() {
             <Card
               img={rifki}
               nama="Rifki Ardiansyah"
+              deskripsi="Praktisi jaringan komputer dan fiber optic dengan pengalaman di lapangan."
               ig="instagram.com/rifkiardiansyah_18"
               li="linkedin.com/in/rifki-ardiyansah-00aa7426a/"
               bidang="Jaringan Komputer"
@@ -35,6 +37,7 @@ export default function Layanan() {
             <Card
               img={sahal}
               nama="Sahal Ferlyaqdhan Aufa"
+              deskripsi="Praktisi Microsoft Office untuk kebutuhan administrasi dan pengolahan data."
               ig="instagram.com/shlll.fa"
               li="linkedin.com/in/sahal-ferlyaqdhan-aufa-858a8a318/"
               bidang="Microsoft Office"
@@ -44,6 +47,7 @@ export default function Layanan() {
             <Card
               img={shandy}
               nama="Shandy Dwi"
+              deskripsi="Praktisi pemrograman yang aktif di pengembangan aplikasi web."
               ig="instagram.com/firshandydwi_"
               li="linkedin.com/in/firshandy-dwi-cahyo/"
               bidang="Pemrograman"
@@ -53,6 +57,7 @@ export default function Layanan() {
             <Card
               img={yordan}
               nama="Ahmad Yordan Pusilo"
+              deskripsi="Praktisi jaringan komputer dan infrastruktur teknologi informasi."
               ig="instagram.com/yrdn666"
               li="linkedin.com/in/yordankece/"
               bidang="Jaringan Komputer"
@@ -65,7 +70,7 @@ export default function Layanan() {
   );
 }
 
-function Card({ img, nama, ig, li, bidang, col }) {
+function Card({ img, nama, ig, li, bidang, col, deskripsi }) {
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4">
       <div className="bg-white rounded-xl shadow p-4">
@@ -89,9 +94,10 @@ function Card({ img, nama, ig, li, bidang, col }) {
           </div>
         </div>
 
-        <p className={`${col} text-sm font-semibold text-dark-gray mb-2`}>
+        <p className={`${col} text-sm font-semibold text-dark-gray mb-1`}>
           Mentor {bidang}
         </p>
+        <p className="text-sm text-dark-gray">{deskripsi}</p>
       </div>
     </div>
   );
