@@ -81,7 +81,7 @@ app.post(
 );
 
 app.post(
-  "/api/admin/login",
+  "/api/admin-login",
   limiter({ scope: "login", max: 5, windowMs: 15 * 60 * 1000 }),
   async (req, res) => {
     const { password } = req.body || {};
@@ -166,7 +166,7 @@ app.delete("/api/pendaftaran/:id", async (req, res) => {
   }
 });
 
-app.get("/api/admin/login-log", async (req, res) => {
+app.get("/api/admin-login-log", async (req, res) => {
   if (!isPasswordValid(req.get("x-admin-password"))) {
     return res.status(401).json({ error: "Tidak diizinkan." });
   }

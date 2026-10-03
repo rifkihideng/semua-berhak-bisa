@@ -114,7 +114,7 @@ export default function Admin() {
   const fetchLogs = useCallback(async (pw) => {
     setLogStatus("loading");
     try {
-      const res = await fetch(`${API_URL}/api/admin/login-log`, {
+      const res = await fetch(`${API_URL}/api/admin-login-log`, {
         headers: { "x-admin-password": pw },
       });
       const json = await res.json();
@@ -141,7 +141,7 @@ export default function Admin() {
     e.preventDefault();
     setLoginError("");
     try {
-      const res = await fetch(`${API_URL}/api/admin/login`, {
+      const res = await fetch(`${API_URL}/api/admin-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),

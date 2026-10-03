@@ -68,8 +68,8 @@ Jalankan `npm run server` (port 3001). Endpoint:
 - `GET /api/pendaftaran` — daftar pendaftar (butuh header `x-admin-password`).
 - `PATCH /api/pendaftaran/:id` — ubah status pendaftar (`baru` | `diterima` | `ditolak`).
 - `DELETE /api/pendaftaran/:id` — hapus data pendaftar.
-- `POST /api/admin/login` — login admin (mencatat audit log).
-- `GET /api/admin/login-log` — log aktivitas login admin (butuh `x-admin-password`).
+- `POST /api/admin-login` — login admin (mencatat audit log).
+- `GET /api/admin-login-log` — log aktivitas login admin (butuh `x-admin-password`).
 
 ### 2. Vercel Serverless Functions (production)
 
@@ -78,8 +78,8 @@ Folder `api/` berisi fungsi serverless yang langsung bisa di-deploy ke Vercel be
 - `api/health.js` → `GET /api/health`
 - `api/pendaftaran.js` → `GET` & `POST /api/pendaftaran`
 - `api/pendaftaran/[id].js` → `PATCH` & `DELETE /api/pendaftaran/:id`
-- `api/admin-login.js` → `POST /api/admin/login`
-- `api/admin-login-log.js` → `GET /api/admin/login-log`
+- `api/admin-login.js` → `POST /api/admin-login`
+- `api/admin-login-log.js` → `GET /api/admin-login-log`
 
 ### Konfigurasi Environment
 
