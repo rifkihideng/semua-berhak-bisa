@@ -30,6 +30,8 @@ export default function Admin() {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [logs, setLogs] = useState([]);
+  const [logStatus, setLogStatus] = useState("idle");
 
   const fetchData = useCallback(async (pw) => {
     setStatus("loading");
@@ -54,11 +56,31 @@ export default function Admin() {
     }
   }, []);
 
+  const fetchLogs = useCallback(async (pw) => {
+    setLogStatus("loading");
+    try {
+      const res = await fetch(`${API_URL}/api/admin/login-log`, {
+        headers: { "x-admin-password": pw },
+      });
+      const json = await res.json();
+      if (res.status === 401) {
+        setLogStatus("ready");
+        return;
+      }
+      if (!res.ok) throw new Error(json.error || "Gagal memuat log.");
+      setLogs(json.data || []);
+      setLogStatus("ready");
+    } catch {
+      setLogStatus("ready");
+    }
+  }, []);
+
   useEffect(() => {
     if (password) {
       fetchData(password);
+      fetchLogs(password);
     }
-  }, [password, fetchData]);
+  }, [password, fetchData, fetchLogs]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -74,6 +96,7 @@ export default function Admin() {
       sessionStorage.setItem("admin_password", password);
       setUnlocked(true);
       await fetchData(password);
+      await fetchLogs(password);
     } catch (err) {
       setLoginError(err.message || "Password salah.");
     }
@@ -128,7 +151,10 @@ export default function Admin() {
             </p>
           </div>
           <button
-            onClick={() => fetchData(password)}
+            onClick={() => {
+              fetchData(password);
+              fetchLogs(password);
+            }}
             className="btn-template font-semibold md:text-sm"
           >
             Refresh
@@ -185,6 +211,51 @@ export default function Admin() {
               </table>
             </div>
           ))}
+
+        <div className="mt-12">
+          <h3 className="font-inter text-xl font-bold text-black-soft dark:text-light mb-4">
+            Log Aktivitas <span className="text-firstcol">Login</span>
+          </h3>
+          {logStatus === "loading" ? (
+            <p className="text-black-soft dark:text-light md:text-sm">
+              Memuat log...
+            </p>
+          ) : logs.length === 0 ? (
+            <p className="text-black-soft dark:text-light md:text-sm">
+              Belum ada aktivitas login.
+            </p>
+          ) : (
+            <div className="overflow-x-auto rounded-xl shadow">
+              <table className="w-full text-left bg-white dark:bg-dark-gray">
+                <thead className="bg-light dark:bg-black-soft text-black-soft dark:text-light">
+                  <tr>
+                    <th className="px-4 py-3 md:text-sm">No</th>
+                    <th className="px-4 py-3 md:text-sm">Status</th>
+                    <th className="px-4 py-3 md:text-sm">IP</th>
+                    <th className="px-4 py-3 md:text-sm">Waktu</th>
+                  </tr>
+                </thead>
+                <tbody className="text-black-soft dark:text-light">
+                  {logs.map((l, i) => (
+                    <tr
+                      key={l.id}
+                      className="border-t border-gray-200 dark:border-dark-gray"
+                    >
+                      <td className="px-4 py-3 md:text-sm">{i + 1}</td>
+                      <td className="px-4 py-3 md:text-sm">
+                        {Number(l.success) === 1 ? "Berhasil" : "Gagal"}
+                      </td>
+                      <td className="px-4 py-3 md:text-sm">{l.ip || "-"}</td>
+                      <td className="px-4 py-3 md:text-sm">
+                        {formatTanggal(l.created_at)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

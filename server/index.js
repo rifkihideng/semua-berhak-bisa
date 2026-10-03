@@ -8,6 +8,7 @@ import { getDb } from "../lib/db.js";
 import { validatePendaftaran } from "../lib/pendaftaran.js";
 import { isPasswordValid } from "../lib/auth.js";
 import { rateLimit } from "../lib/rateLimit.js";
+import { logLogin } from "../lib/log.js";
 
 // Muat file .env dari folder server/
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -82,9 +83,11 @@ app.post(
 app.post(
   "/api/admin/login",
   limiter({ scope: "login", max: 5, windowMs: 15 * 60 * 1000 }),
-  (req, res) => {
+  async (req, res) => {
     const { password } = req.body || {};
-    if (isPasswordValid(password)) {
+    const valid = isPasswordValid(password);
+    await logLogin({ success: valid, ip: req.ip });
+    if (valid) {
       return res.json({ ok: true });
     }
     res.status(401).json({ error: "Password salah." });
@@ -99,6 +102,23 @@ app.get("/api/pendaftaran", async (req, res) => {
   try {
     const db = await getDb();
     const rs = await db.execute("SELECT * FROM pendaftar ORDER BY id DESC");
+    res.json({ data: rs.rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Terjadi kesalahan pada server." });
+  }
+});
+
+app.get("/api/admin/login-log", async (req, res) => {
+  if (!isPasswordValid(req.get("x-admin-password"))) {
+    return res.status(401).json({ error: "Tidak diizinkan." });
+  }
+
+  try {
+    const db = await getDb();
+    const rs = await db.execute(
+      "SELECT * FROM login_log ORDER BY id DESC LIMIT 100",
+    );
     res.json({ data: rs.rows });
   } catch (err) {
     console.error(err);

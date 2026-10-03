@@ -1,7 +1,8 @@
 import { isPasswordValid } from "../lib/auth.js";
 import { rateLimit } from "../lib/rateLimit.js";
+import { logLogin } from "../lib/log.js";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return send(res, 405, { error: "Method tidak diizinkan." });
   }
@@ -12,7 +13,13 @@ export default function handler(req, res) {
   }
 
   const body = parseBody(req);
-  if (isPasswordValid(body.password)) {
+  const valid = isPasswordValid(body.password);
+  await logLogin({
+    success: valid,
+    ip: req.headers["x-forwarded-for"] || null,
+  });
+
+  if (valid) {
     return send(res, 200, { ok: true });
   }
 
