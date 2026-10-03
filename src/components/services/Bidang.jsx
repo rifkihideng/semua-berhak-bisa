@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { LINKS } from "../../lib/links";
+import { Link, useSearchParams } from "react-router-dom";
 
 const KATEGORI = ["all", "pemrograman", "design", "jaringan", "office"];
 
@@ -356,14 +355,12 @@ function ServiceCard({
           </div>
 
           <div className="mt-2 md:mt-8">
-            <a
-              href={LINKS.pendaftaran}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              to={`/daftar?bidang=${category}`}
               className={`btn-template ${bg} ${border} hover:bg-transparent`}
             >
               Mulai Belajar
-            </a>
+            </Link>
           </div>
         </div>
 

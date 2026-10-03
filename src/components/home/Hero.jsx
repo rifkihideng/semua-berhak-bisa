@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { LINKS } from "../../lib/links";
 
 export default function Hero() {
   return (
@@ -30,14 +29,9 @@ export default function Hero() {
               #SemuaBerhakBisa
             </span>
           </p>
-          <a
-            href={LINKS.pendaftaran}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-template font-semibold md:text-sm"
-          >
+          <Link to="/daftar" className="btn-template font-semibold md:text-sm">
             Mulai Belajar
-          </a>
+          </Link>
         </div>
 
         <div className="mt-20 md:mt-24">
