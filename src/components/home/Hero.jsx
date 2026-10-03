@@ -1,3 +1,5 @@
+import { LINKS } from "../../lib/links";
+
 export default function Hero() {
   return (
     <section
@@ -28,7 +30,9 @@ export default function Hero() {
             </span>
           </p>
           <a
-            href="bit.ly/PendaftaranBelajarSBB"
+            href={LINKS.pendaftaran}
+            target="_blank"
+            rel="noreferrer"
             className="btn-template font-semibold md:text-sm"
           >
             Mulai Belajar
