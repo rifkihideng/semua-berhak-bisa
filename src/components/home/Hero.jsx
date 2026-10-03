@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LINKS } from "../../lib/links";
 
 export default function Hero() {
@@ -53,6 +54,7 @@ export default function Hero() {
               color="border-firstcol"
               title="Pemrograman"
               padding="py-1.5 px-5.75"
+              bidang="pemrograman"
             />
             <AkademiItem
               icon=""
@@ -60,6 +62,7 @@ export default function Hero() {
               color="border-secondcol"
               title="Desain Grafis"
               padding="py-1.5 px-6"
+              bidang="design"
             />
             <AkademiItem
               icon=""
@@ -67,6 +70,7 @@ export default function Hero() {
               color="border-thirdcol"
               title="Jaringan Komputer"
               padding="py-1.5 px-2.25"
+              bidang="jaringan"
             />
             <AkademiItem
               icon=""
@@ -74,6 +78,7 @@ export default function Hero() {
               color="border-fourthcol"
               title="Microsoft Office"
               padding="py-1.5 px-4"
+              bidang="office"
             />
           </div>
         </div>
@@ -82,16 +87,16 @@ export default function Hero() {
   );
 }
 
-function AkademiItem({ icon, iconType, title, color, padding }) {
+function AkademiItem({ icon, iconType, title, color, padding, bidang }) {
   return (
-    <a
-      href="#"
+    <Link
+      to={`/layanan?bidang=${bidang}`}
       className={`flex items-center ${padding} shadow-md rounded border-2 ${color} transition-all md:py-2`}
     >
       <i className={`${iconType} text-[16px] text-black-soft dark:text-light`}>
         {icon}
       </i>
       <h3 className="ml-2 font-bold md:text-sm">{title}</h3>
-    </a>
+    </Link>
   );
 }

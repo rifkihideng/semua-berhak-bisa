@@ -187,6 +187,15 @@ body {
   transform-origin: bottom left;
 }
 
+/* Slick carousel */
+.slick-dots li button:before {
+  color: var(--color-firstcol);
+}
+.slick-prev:before,
+.slick-next:before {
+  color: var(--color-firstcol);
+}
+
 ::-webkit-scrollbar {
   @apply w-2;
 }

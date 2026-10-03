@@ -1,3 +1,5 @@
+import Reveal from "../common/Reveal";
+
 const kegiatan = [
   { judul: "Kelas Online Pemrograman", info: "Senin, 20.00 WIB" },
   { judul: "Kelas Online Desain Grafis", info: "Selasa, 20.00 WIB" },
@@ -20,7 +22,11 @@ export default function Galeri() {
         {/* Ganti blok placeholder di bawah dengan <img src="..." alt="..." /> foto kegiatan asli */}
         <div className="flex flex-wrap justify-center gap-6">
           {kegiatan.map((k, i) => (
-            <div key={k.judul} className="w-full md:w-1/2 lg:w-1/3">
+            <Reveal
+              key={k.judul}
+              delay={(i % 3) * 0.1}
+              className="w-full md:w-1/2 lg:w-1/3"
+            >
               <div className="rounded-xl overflow-hidden bg-white dark:bg-dark-gray shadow">
                 <div
                   className={`h-40 flex justify-center items-center ${warna[i % warna.length]}`}
@@ -36,7 +42,7 @@ export default function Galeri() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

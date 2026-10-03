@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { LINKS } from "../../lib/links";
+
+const KATEGORI = ["all", "pemrograman", "design", "jaringan", "office"];
 
 export default function Layanan() {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeFilter, setActiveFilter] = useState(() => {
+    const b = searchParams.get("bidang");
+    return KATEGORI.includes(b) ? b : "all";
+  });
+
+  useEffect(() => {
+    const b = searchParams.get("bidang");
+    if (KATEGORI.includes(b)) {
+      setActiveFilter(b);
+    }
+  }, [searchParams]);
 
   const handleFilter = (filter) => {
     setActiveFilter(filter);
+    if (filter === "all") {
+      setSearchParams({}, { replace: true });
+    } else {
+      setSearchParams({ bidang: filter }, { replace: true });
+    }
   };
 
   const services = [
@@ -180,7 +200,7 @@ export default function Layanan() {
             <div className="space-x-2 space-y-3 md:hidden">
               <button
                 onClick={() => handleFilter("all")}
-                className={`${activeFilter === "all" ? "active-div" : ""} w-fit rounded-full border border-firstcol px-3 py-1.5 text-[10px]transition cursor-pointer hover:text-black-soft hover:scale-95`}
+                className={`${activeFilter === "all" ? "active-div" : ""} w-fit rounded-full border border-firstcol px-3 py-1.5 text-xs transition cursor-pointer hover:text-black-soft hover:scale-105`}
               >
                 Lihat Semua
               </button>
@@ -189,7 +209,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("pemrograman")}
                 className={`${
                   activeFilter === "pemrograman" ? "active-div" : ""
-                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-[10px]transition cursor-pointer hover:text-black-soft hover:scale-95 `}
+                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-xs transition cursor-pointer hover:text-black-soft hover:scale-105 `}
               >
                 Pemrograman
               </button>
@@ -198,7 +218,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("design")}
                 className={`${
                   activeFilter === "design" ? "active-div" : ""
-                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-[10px]transition cursor-pointer hover:text-black-soft hover:scale-95`}
+                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-xs transition cursor-pointer hover:text-black-soft hover:scale-105`}
               >
                 Desain Grafis
               </button>
@@ -207,7 +227,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("jaringan")}
                 className={`${
                   activeFilter === "jaringan" ? "active-div" : ""
-                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-[10px]transition cursor-pointer hover:text-black-soft hover:scale-95`}
+                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-xs transition cursor-pointer hover:text-black-soft hover:scale-105`}
               >
                 Jaringan Komputer
               </button>
@@ -216,7 +236,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("office")}
                 className={`${
                   activeFilter === "office" ? "active-div" : ""
-                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-[10px]transition cursor-pointer hover:text-black-soft hover:scale-95`}
+                } w-fit rounded-full border border-firstcol px-3 py-1.5 text-xs transition cursor-pointer hover:text-black-soft hover:scale-105`}
               >
                 Microsoft Office
               </button>
@@ -226,7 +246,7 @@ export default function Layanan() {
             <div className="space-y-3 hidden md:block">
               <button
                 onClick={() => handleFilter("all")}
-                className={`${activeFilter === "all" ? "active-div" : ""} w-full rounded-sm border text-left px-4 py-2 text-smtransition cursor-pointer`}
+                className={`${activeFilter === "all" ? "active-div" : ""} w-full rounded-sm border border-firstcol text-left px-4 py-2 text-sm transition cursor-pointer`}
               >
                 Lihat Semua
               </button>
@@ -235,7 +255,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("pemrograman")}
                 className={`${
                   activeFilter === "pemrograman" ? "active-div" : ""
-                } w-full rounded-sm border text-left px-4 py-2 text-smtransition cursor-pointer`}
+                } w-full rounded-sm border border-firstcol text-left px-4 py-2 text-sm transition cursor-pointer`}
               >
                 Pemrograman
               </button>
@@ -244,7 +264,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("design")}
                 className={`${
                   activeFilter === "design" ? "active-div" : ""
-                } w-full rounded-sm border text-left px-4 py-2 text-smtransition cursor-pointer`}
+                } w-full rounded-sm border border-firstcol text-left px-4 py-2 text-sm transition cursor-pointer`}
               >
                 Desain Grafis
               </button>
@@ -253,7 +273,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("jaringan")}
                 className={`${
                   activeFilter === "jaringan" ? "active-div" : ""
-                } w-full rounded-sm border text-left px-4 py-2 text-smtransition cursor-pointer`}
+                } w-full rounded-sm border border-firstcol text-left px-4 py-2 text-sm transition cursor-pointer`}
               >
                 Jaringan Komputer
               </button>
@@ -262,7 +282,7 @@ export default function Layanan() {
                 onClick={() => handleFilter("office")}
                 className={`${
                   activeFilter === "office" ? "active-div" : ""
-                } w-full rounded-sm border text-left px-4 py-2 text-smtransition cursor-pointer`}
+                } w-full rounded-sm border border-firstcol text-left px-4 py-2 text-sm transition cursor-pointer`}
               >
                 Microsoft Office
               </button>
@@ -314,7 +334,7 @@ function ServiceCard({
         className={`card flex flex-wrap border-2 ${border} rounded-xl shadow-sm`}
       >
         <div
-          className={`w-full border-b-2 ${border} px-3 pb-4 pt-7 flex flex-wrap justify-between md:w-[40%] md: md:border-r-2 md:border-b-0 md:px-5 md:py-7`}
+          className={`w-full border-b-2 ${border} px-3 pb-4 pt-7 flex flex-wrap justify-between md:w-[40%] md:border-r-2 md:border-b-0 md:px-5 md:py-7`}
         >
           <div className="w-[65%] md:w-full">
             <h3 className="text-lg/5 font-bold mb-2 md:text-xl">{title}</h3>
@@ -337,7 +357,9 @@ function ServiceCard({
 
           <div className="mt-2 md:mt-8">
             <a
-              href="#"
+              href={LINKS.pendaftaran}
+              target="_blank"
+              rel="noreferrer"
               className={`btn-template ${bg} ${border} hover:bg-transparent`}
             >
               Mulai Belajar
@@ -345,14 +367,12 @@ function ServiceCard({
           </div>
         </div>
 
-        <div className="px-3 pt-4 pb-7 md:px-5 md:py-7">
+        <div className="w-full px-3 pt-4 pb-7 md:w-[60%] md:px-5 md:py-7">
           <h4 className="font-semibold text-base md:text-lg">
-            Pilihan Materi :
+            Pilihan Materi:
           </h4>
 
-          <ol className="block">
-            <Materi items={materi} />
-          </ol>
+          <Materi items={materi} />
         </div>
       </div>
     </div>
@@ -361,13 +381,9 @@ function ServiceCard({
 
 function Materi({ items }) {
   return (
-    <ol className="block">
+    <ol className="list-decimal space-y-1 pl-5 md:text-sm">
       {items.map((item, index) => (
-        <li key={index}>
-          <p className="md:text-sm">
-            {index + 1}. {item}
-          </p>
-        </li>
+        <li key={index}>{item}</li>
       ))}
     </ol>
   );

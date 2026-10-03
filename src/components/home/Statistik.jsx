@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import Reveal from "../common/Reveal";
 
 const statistik = [
   { nilai: 4, suffix: "", label: "Bidang Akademi" },
   { nilai: 5, suffix: "", label: "Mentor" },
   { nilai: 7, suffix: "", label: "Wilayah Offline" },
-  { nilai: 100, suffix: "+", label: "Peserta Belajar" },
+  { nilai: 20, suffix: "", label: "Peserta Belajar" },
 ];
 
 function Counter({ nilai, suffix }) {
@@ -52,13 +53,13 @@ export default function Statistik() {
     <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container">
         <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-          {statistik.map((s) => (
-            <div key={s.label} className="w-40 text-center">
+          {statistik.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.1} className="w-40 text-center">
               <Counter nilai={s.nilai} suffix={s.suffix} />
               <p className="mt-1 md:text-sm text-black-soft dark:text-light">
                 {s.label}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

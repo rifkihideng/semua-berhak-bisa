@@ -1,4 +1,7 @@
+import usePageTitle from "../lib/usePageTitle";
+
 export default function NotFound() {
+  usePageTitle("Halaman Tidak Ditemukan | Semua Berhak Bisa");
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
       <h1 className="text-4xl font-bold mb-4">404</h1>

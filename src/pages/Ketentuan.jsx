@@ -1,4 +1,7 @@
+import usePageTitle from "../lib/usePageTitle";
+
 export default function Ketentuan() {
+  usePageTitle("Ketentuan | Semua Berhak Bisa");
   return (
     <section className="w-full flex justify-center px-6 py-20 md:px-12 md:py-24">
       <div className="container">

@@ -1,3 +1,5 @@
+import Reveal from "../common/Reveal";
+
 const misi = [
   "Menyelenggarakan kelas belajar gratis yang terjadwal dan terarah.",
   "Menghadirkan mentor praktisi yang berpengalaman di bidangnya.",
@@ -15,7 +17,7 @@ export default function VisiMisi() {
           </h2>
 
           <div className="flex flex-wrap justify-center gap-6">
-            <div className="w-full md:w-1/3">
+            <Reveal className="w-full md:w-1/3">
               <div className="h-full bg-white dark:bg-dark-gray rounded-xl shadow p-6">
                 <h3 className="font-inter font-bold text-lg text-black-soft dark:text-light mb-3">
                   Visi
@@ -26,9 +28,9 @@ export default function VisiMisi() {
                   keterampilan digitalnya secara gratis.
                 </p>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="w-full md:w-1/2">
+            <Reveal delay={0.15} className="w-full md:w-1/2">
               <div className="h-full bg-white dark:bg-dark-gray rounded-xl shadow p-6">
                 <h3 className="font-inter font-bold text-lg text-black-soft dark:text-light mb-3">
                   Misi
@@ -45,7 +47,7 @@ export default function VisiMisi() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

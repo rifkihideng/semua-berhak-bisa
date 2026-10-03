@@ -1,3 +1,7 @@
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const testimoni = [
   {
     nama: "Nadia Putri",
@@ -30,6 +34,20 @@ function inisial(nama) {
     .toUpperCase();
 }
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 4000,
+  responsive: [
+    { breakpoint: 1024, settings: { slidesToShow: 2 } },
+    { breakpoint: 640, settings: { slidesToShow: 1 } },
+  ],
+};
+
 export default function Testimoni() {
   return (
     <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
@@ -42,29 +60,31 @@ export default function Testimoni() {
           #SemuaBerhakBisa.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-6">
-          {testimoni.map((t) => (
-            <div key={t.nama} className="w-full md:w-1/2 lg:w-1/4">
-              <div className="h-full bg-white dark:bg-dark-gray rounded-xl shadow p-6 flex flex-col">
-                <p className="md:text-sm text-black-soft dark:text-light flex-1">
-                  &ldquo;{t.teks}&rdquo;
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-firstcol flex justify-center items-center text-white font-bold text-sm">
-                    {inisial(t.nama)}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-black-soft dark:text-light">
-                      {t.nama}
-                    </h3>
-                    <p className="text-xs text-firstcol font-semibold">
-                      {t.bidang}
-                    </p>
+        <div className="w-full">
+          <Slider {...settings}>
+            {testimoni.map((t) => (
+              <div key={t.nama} className="px-3">
+                <div className="h-full bg-white dark:bg-dark-gray rounded-xl shadow p-6 flex flex-col">
+                  <p className="md:text-sm text-black-soft dark:text-light flex-1">
+                    &ldquo;{t.teks}&rdquo;
+                  </p>
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-firstcol flex justify-center items-center text-white font-bold text-sm">
+                      {inisial(t.nama)}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-sm text-black-soft dark:text-light">
+                        {t.nama}
+                      </h3>
+                      <p className="text-xs text-firstcol font-semibold">
+                        {t.bidang}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </Slider>
         </div>
       </div>
     </section>
