@@ -1,8 +1,14 @@
 import { isPasswordValid } from "../lib/auth.js";
+import { rateLimit } from "../lib/rateLimit.js";
 
 export default function handler(req, res) {
   if (req.method !== "POST") {
     return send(res, 405, { error: "Method tidak diizinkan." });
+  }
+
+  const key = `login:${req.headers["x-forwarded-for"] || "unknown"}`;
+  if (!rateLimit(key, { max: 5, windowMs: 15 * 60 * 1000 })) {
+    return send(res, 429, { error: "Terlalu banyak percobaan. Coba lagi nanti." });
   }
 
   const body = parseBody(req);

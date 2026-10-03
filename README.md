@@ -80,13 +80,22 @@ Variabel yang perlu diisi:
 
 - `TURSO_DATABASE_URL` — URL database Turso (contoh: `libsql://nama-db.turso.io`).
 - `TURSO_AUTH_TOKEN` — token autentikasi Turso.
-- `ADMIN_PASSWORD` — password untuk membuka halaman admin `/admin` dan endpoint daftar pendaftar.
+- `ADMIN_PASSWORD_SALT` & `ADMIN_PASSWORD_HASH` — hash + salt (scrypt) untuk login admin `/admin`. Password asli tidak disimpan.
 
 Jika variabel Turso kosong (khusus development), backend otomatis memakai SQLite lokal di `data/pendaftaran.db`.
 
 ### Halaman Admin
 
 Buka `/admin` untuk melihat daftar pendaftar. Halaman ini dilindungi password — masukkan `ADMIN_PASSWORD` yang sudah dikonfigurasi di environment.
+
+## Keamanan
+
+- **Proteksi password admin** — halaman `/admin` dan endpoint daftar pendaftar dilindungi password yang disimpan sebagai hash + salt (scrypt), bukan plaintext.
+- **Rate limiting** — mencegah brute-force dan spam: login dibatasi 5x/15 menit, kirim pendaftaran 10x/jam, dan limit global per IP.
+- **Security headers** — via `helmet` (Express) dan `vercel.json` (Vercel): `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`.
+- **CORS dibatasi** — hanya origin frontend yang diizinkan (`CORS_ORIGIN`).
+- **Validasi & batas input** — panjang field dibatasi, format nomor WhatsApp divalidasi, body dibatasi 10 KB.
+- **SQL injection aman** — semua query memakai parameterized query (placeholder `?`).
 
 ### Deploy ke Vercel
 

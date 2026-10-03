@@ -1,6 +1,7 @@
 import { getDb } from "../lib/db.js";
 import { validatePendaftaran } from "../lib/pendaftaran.js";
 import { isPasswordValid } from "../lib/auth.js";
+import { rateLimit } from "../lib/rateLimit.js";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -13,6 +14,11 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
+    const key = `daftar:${req.headers["x-forwarded-for"] || "unknown"}`;
+    if (!rateLimit(key, { max: 10, windowMs: 60 * 60 * 1000 })) {
+      return send(res, 429, { error: "Terlalu banyak permintaan. Coba lagi nanti." });
+    }
+
     const db = await getDb();
     const { data, error } = validatePendaftaran(parseBody(req));
     if (error) {
