@@ -80,6 +80,20 @@ export default function Navbar() {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `flex py-2 md:text-sm hover-underline ${
+                    isActive
+                      ? "text-firstcol"
+                      : "text-black-soft dark:text-light hover:text-firstcol"
+                  }`
+                }
+              >
+                Blog
+              </NavLink>
+            </li>
+            <li>
               <a
                 href={LINKS.whatsapp}
                 target="_blank"
@@ -165,6 +179,21 @@ export default function Navbar() {
                   }
                 >
                   Bidang Layanan
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/blog"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `flex py-1 md:text-sm hover-underline ${
+                      isActive
+                        ? "text-firstcol"
+                        : "text-black-soft dark:text-light hover:text-firstcol"
+                    }`
+                  }
+                >
+                  Blog
                 </NavLink>
               </li>
               <li>

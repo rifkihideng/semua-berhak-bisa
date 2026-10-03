@@ -26,6 +26,9 @@ export default function Footer() {
                 <Link to="/layanan" className="md:text-sm">
                   Bidang Layanan
                 </Link>
+                <Link to="/blog" className="md:text-sm">
+                  Blog
+                </Link>
               </div>
 
               <div className="mt-4 md:hidden">

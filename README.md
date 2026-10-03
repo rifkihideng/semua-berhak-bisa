@@ -1,14 +1,17 @@
 # Semua Berhak Bisa
 
-Website resmi komunitas **#SemuaBerhakBisa** — komunitas belajar teknologi informasi gratis untuk semua kalangan. Website ini berisi informasi program akademi (Pemrograman, Desain Grafis, Jaringan Komputer, dan Microsoft Office), profil mentor, wilayah belajar offline, serta alur pendaftaran.
+Website resmi komunitas **#SemuaBerhakBisa** — komunitas belajar teknologi informasi gratis untuk semua kalangan. Website ini berisi informasi program akademi (Pemrograman, Desain Grafis, Jaringan Komputer, dan Microsoft Office), profil mentor, wilayah belajar offline, alur pendaftaran, serta blog & artikel edukasi.
 
 ## Fitur
 
 - **Beranda** — hero, bidang akademi, alasan belajar bersama, statistik komunitas, metode belajar, testimoni, dan CTA ketentuan.
 - **Tentang Komunitas** — tujuan, visi & misi, profil mentor, zona wilayah offline, dokumentasi kegiatan, dan FAQ.
 - **Bidang Layanan** — penjelasan bidang akademi dan ajakan kerja sama.
+- **Blog & Artikel Edukasi** — halaman `/blog` berisi artikel seputar IT dan detail artikel di `/blog/:slug`.
+- **Pendaftaran online** — formulir pendaftaran dengan pilihan bidang, asal kota, dan kolom feedback/saran (opsional).
+- **Halaman Admin** — kelola pendaftar (status, feedback), ubah status, hapus, export CSV, statistik per bidang, dan log login.
 - **Ketentuan** — alur pendaftaran, jadwal belajar, dan aturan.
-- **Dark mode** — toggle tema terang/gelap (tersimpan di `localStorage`).
+- **Tema terang (soft) & gelap** — toggle tema; mode terang memakai warna hangat yang nyaman di mata (tersimpan di `localStorage`).
 - **Responsif** — tampilan optimal untuk mobile dan desktop.
 
 ## Tech Stack
@@ -61,8 +64,12 @@ Backend memakai database **Turso/libSQL** (fallback otomatis ke SQLite lokal bil
 Jalankan `npm run server` (port 3001). Endpoint:
 
 - `GET /api/health` — cek status server.
-- `POST /api/pendaftaran` — simpan data pendaftaran. Body: `{ nama, whatsapp, bidang, asal? }`.
-- `GET /api/pendaftaran` — daftar pendaftar.
+- `POST /api/pendaftaran` — simpan data pendaftaran. Body: `{ nama, whatsapp, bidang, asal?, feedback? }`.
+- `GET /api/pendaftaran` — daftar pendaftar (butuh header `x-admin-password`).
+- `PATCH /api/pendaftaran/:id` — ubah status pendaftar (`baru` | `diterima` | `ditolak`).
+- `DELETE /api/pendaftaran/:id` — hapus data pendaftar.
+- `POST /api/admin/login` — login admin (mencatat audit log).
+- `GET /api/admin/login-log` — log aktivitas login admin (butuh `x-admin-password`).
 
 ### 2. Vercel Serverless Functions (production)
 
@@ -70,6 +77,9 @@ Folder `api/` berisi fungsi serverless yang langsung bisa di-deploy ke Vercel be
 
 - `api/health.js` → `GET /api/health`
 - `api/pendaftaran.js` → `GET` & `POST /api/pendaftaran`
+- `api/pendaftaran/[id].js` → `PATCH` & `DELETE /api/pendaftaran/:id`
+- `api/admin-login.js` → `POST /api/admin/login`
+- `api/admin-login-log.js` → `GET /api/admin/login-log`
 
 ### Konfigurasi Environment
 
@@ -86,7 +96,13 @@ Jika variabel Turso kosong (khusus development), backend otomatis memakai SQLite
 
 ### Halaman Admin
 
-Buka `/admin` untuk melihat daftar pendaftar. Halaman ini dilindungi password — masukkan `ADMIN_PASSWORD` yang sudah dikonfigurasi di environment.
+Buka `/admin` untuk mengelola pendaftar. Halaman ini dilindungi password (hash + salt di environment). Di dalamnya tersedia:
+
+- Daftar pendaftar lengkap (nama, WhatsApp, bidang, asal, feedback, status, tanggal).
+- Ubah status (Baru / Diterima / Ditolak) dan hapus data.
+- Statistik jumlah pendaftar per bidang.
+- Export data pendaftar ke CSV.
+- Log aktivitas login (berhasil/gagal + IP + waktu).
 
 ## Keamanan
 
@@ -96,6 +112,8 @@ Buka `/admin` untuk melihat daftar pendaftar. Halaman ini dilindungi password �
 - **CORS dibatasi** — hanya origin frontend yang diizinkan (`CORS_ORIGIN`).
 - **Validasi & batas input** — panjang field dibatasi, format nomor WhatsApp divalidasi, body dibatasi 10 KB.
 - **SQL injection aman** — semua query memakai parameterized query (placeholder `?`).
+- **Content Security Policy (CSP)** — meta tag di `index.html` membatasi sumber script, style, font, dan koneksi untuk mencegah XSS.
+- **Audit log login admin** — setiap percobaan login dicatat (berhasil/gagal, IP, waktu) ke tabel `login_log`.
 
 ### Deploy ke Vercel
 
@@ -116,17 +134,25 @@ src/
 │   ├── home/       # Bagian halaman Beranda (Hero, KenapaKami, Statistik, MetodeBelajar, Testimoni, Konsultasi)
 │   └── services/   # Bagian halaman Layanan (Bidang, KerjaSama)
 ├── lib/            # Util frontend (link terpusat & hooks)
-├── pages/          # Halaman (Home, Tentang, Layanan, Ketentuan, Daftar, NotFound)
+├── pages/          # Halaman (Home, Tentang, Layanan, Ketentuan, Daftar, Blog, Artikel, Admin, NotFound)
 ├── routes/         # Konfigurasi route
+├── data/           # Konten blog & artikel
 └── assets/         # Gambar, font, dan styles
 
 api/                # Vercel Serverless Functions (production)
 ├── health.js
-└── pendaftaran.js
+├── pendaftaran.js
+├── pendaftaran/
+│   └── [id].js
+├── admin-login.js
+└── admin-login-log.js
 
-lib/                # Logika backend bersama (database & validasi)
+lib/                # Logika backend bersama (database, validasi, auth, rate limit, log)
 ├── db.js
-└── pendaftaran.js
+├── pendaftaran.js
+├── auth.js
+├── rateLimit.js
+└── log.js
 
 server/             # Server Express untuk development lokal
 ├── index.js

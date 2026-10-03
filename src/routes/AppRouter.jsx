@@ -5,6 +5,8 @@ import Tentang from "../pages/Tentang";
 import Layanan from "../pages/Layanan";
 import Ketentuan from "../pages/Ketentuan";
 import Daftar from "../pages/Daftar";
+import Blog from "../pages/Blog";
+import Artikel from "../pages/Artikel";
 import Admin from "../pages/Admin";
 import NotFound from "../pages/NotFound";
 
@@ -17,6 +19,8 @@ export default function AppRouter() {
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/ketentuan" element={<Ketentuan />} />
         <Route path="/daftar" element={<Daftar />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<Artikel />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Route>
