@@ -9,7 +9,7 @@ export default function Preloader() {
 
     // Sembunyikan preloader mengikuti kecepatan loading halaman sebenarnya
     const hide = () => {
-      fadeTimer = setTimeout(() => setLoading(false), 300);
+      fadeTimer = setTimeout(() => setLoading(false), 700);
     };
 
     if (document.readyState === "complete") {
@@ -26,14 +26,23 @@ export default function Preloader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white dark:bg-black-soft transition-opacity duration-500 ${
-        loading ? "opacity-100" : "opacity-0 pointer-events-none"
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden transition-all duration-700 ${
+        loading ? "opacity-100" : "opacity-0 scale-105 pointer-events-none"
       }`}
     >
-      <img src={logo} alt="logo" className="w-16 h-16 animate-pulse" />
-      <p className="mt-3 font-inter font-semibold text-black-soft dark:text-light">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-light via-white to-firstcol/15 dark:from-black-soft dark:via-black-soft dark:to-firstcol/25" />
+
+      <img src={logo} alt="logo" className="w-20 h-20 preloader-logo" />
+      <h1 className="preloader-title mt-5 font-inter font-bold text-2xl md:text-3xl text-black-soft dark:text-light">
         #SemuaBerhakBisa
+      </h1>
+      <p className="preloader-tagline mt-1 md:text-sm text-black-soft/70 dark:text-light/70">
+        Bayar kami dengan senyumanmu.
       </p>
+
+      <div className="mt-7 w-44 h-1 rounded-full bg-black-soft/10 dark:bg-white/10 overflow-hidden">
+        <div className="preloader-bar h-full w-1/2 rounded-full bg-firstcol" />
+      </div>
     </div>
   );
 }

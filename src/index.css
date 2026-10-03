@@ -199,6 +199,66 @@ body {
   transform-origin: bottom left;
 }
 
+/* Preloader cinematic */
+@keyframes preloader-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes preloader-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preloader-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(32, 172, 225, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(32, 172, 225, 0.6));
+  }
+}
+
+@keyframes preloader-bar {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+.preloader-logo {
+  animation:
+    preloader-fade-in 0.7s ease both,
+    preloader-glow 2.4s ease-in-out 0.7s infinite;
+}
+
+.preloader-title {
+  animation: preloader-slide-up 0.7s ease 0.1s both;
+}
+
+.preloader-tagline {
+  animation: preloader-slide-up 0.7s ease 0.2s both;
+}
+
+.preloader-bar {
+  animation: preloader-bar 1.3s ease-in-out infinite;
+}
+
 /* Slick carousel */
 .slick-dots li button:before {
   color: var(--color-firstcol);
