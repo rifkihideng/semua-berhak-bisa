@@ -26,8 +26,8 @@ export default async function handler(req, res) {
     }
 
     const result = await db.execute({
-      sql: "INSERT INTO pendaftar (nama, whatsapp, bidang, asal) VALUES (?, ?, ?, ?)",
-      args: [data.nama, data.whatsapp, data.bidang, data.asal],
+      sql: "INSERT INTO pendaftar (nama, whatsapp, bidang, asal, feedback) VALUES (?, ?, ?, ?, ?)",
+      args: [data.nama, data.whatsapp, data.bidang, data.asal, data.feedback],
     });
 
     return send(res, 201, {

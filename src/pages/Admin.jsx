@@ -45,6 +45,7 @@ function exportCsv(data) {
     "WhatsApp",
     "Bidang",
     "Asal",
+    "Feedback",
     "Status",
     "Tanggal",
   ];
@@ -54,6 +55,7 @@ function exportCsv(data) {
     d.whatsapp,
     BIDANG_LABEL[d.bidang] || d.bidang,
     d.asal || "",
+    d.feedback || "",
     STATUS_LABEL[d.status] || STATUS_LABEL.baru,
     formatTanggal(d.created_at),
   ]);
@@ -309,6 +311,7 @@ export default function Admin() {
                     <th className="px-4 py-3 md:text-sm">WhatsApp</th>
                     <th className="px-4 py-3 md:text-sm">Bidang</th>
                     <th className="px-4 py-3 md:text-sm">Asal</th>
+                    <th className="px-4 py-3 md:text-sm">Feedback</th>
                     <th className="px-4 py-3 md:text-sm">Status</th>
                     <th className="px-4 py-3 md:text-sm">Tanggal</th>
                     <th className="px-4 py-3 md:text-sm">Aksi</th>
@@ -327,6 +330,15 @@ export default function Admin() {
                         {BIDANG_LABEL[d.bidang] || d.bidang}
                       </td>
                       <td className="px-4 py-3 md:text-sm">{d.asal || "-"}</td>
+                      <td className="px-4 py-3 md:text-sm max-w-[16rem]">
+                        {d.feedback ? (
+                          <span className="block whitespace-pre-line break-words text-black-soft dark:text-light">
+                            {d.feedback}
+                          </span>
+                        ) : (
+                          "-"
+                        )}
+                      </td>
                       <td className="px-4 py-3 md:text-sm">
                         <span
                           className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${

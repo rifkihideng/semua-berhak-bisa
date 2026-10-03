@@ -19,6 +19,7 @@ export default function Daftar() {
     whatsapp: "",
     bidang: searchParams.get("bidang") || "",
     asal: "",
+    feedback: "",
   });
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
@@ -170,6 +171,25 @@ export default function Daftar() {
               onChange={handleChange}
               placeholder="Contoh: Tangerang"
               className="w-full rounded border border-gray-300 dark:border-dark-gray dark:bg-black-soft dark:text-light px-3 py-2 md:text-sm focus:outline-none focus:border-firstcol"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="feedback"
+              className="block mb-1 font-semibold text-black-soft dark:text-light md:text-sm"
+            >
+              Feedback / Saran (opsional)
+            </label>
+            <textarea
+              id="feedback"
+              name="feedback"
+              rows="3"
+              maxLength="500"
+              value={form.feedback}
+              onChange={handleChange}
+              placeholder="Tulis harapan, saran, atau pesan untuk komunitas..."
+              className="w-full rounded border border-gray-300 dark:border-dark-gray dark:bg-black-soft dark:text-light px-3 py-2 md:text-sm focus:outline-none focus:border-firstcol resize-none"
             />
           </div>
 

@@ -65,8 +65,8 @@ app.post(
 
       const db = await getDb();
       const result = await db.execute({
-        sql: "INSERT INTO pendaftar (nama, whatsapp, bidang, asal) VALUES (?, ?, ?, ?)",
-        args: [data.nama, data.whatsapp, data.bidang, data.asal],
+        sql: "INSERT INTO pendaftar (nama, whatsapp, bidang, asal, feedback) VALUES (?, ?, ?, ?, ?)",
+        args: [data.nama, data.whatsapp, data.bidang, data.asal, data.feedback],
       });
 
       res.status(201).json({
