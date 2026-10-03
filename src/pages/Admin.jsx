@@ -10,6 +10,24 @@ const BIDANG_LABEL = {
   office: "Microsoft Office",
 };
 
+const BIDANG_LIST = Object.entries(BIDANG_LABEL).map(([key, label]) => ({
+  key,
+  label,
+}));
+
+const STATUS_LABEL = {
+  baru: "Baru",
+  diterima: "Diterima",
+  ditolak: "Ditolak",
+};
+
+const STATUS_STYLE = {
+  baru: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+  diterima:
+    "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  ditolak: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+};
+
 function formatTanggal(s) {
   if (!s) return "-";
   const d = new Date(s.replace(" ", "T") + "Z");
@@ -18,6 +36,41 @@ function formatTanggal(s) {
     dateStyle: "medium",
     timeStyle: "short",
   });
+}
+
+function exportCsv(data) {
+  const header = [
+    "No",
+    "Nama",
+    "WhatsApp",
+    "Bidang",
+    "Asal",
+    "Status",
+    "Tanggal",
+  ];
+  const rows = data.map((d, i) => [
+    i + 1,
+    d.nama,
+    d.whatsapp,
+    BIDANG_LABEL[d.bidang] || d.bidang,
+    d.asal || "",
+    STATUS_LABEL[d.status] || STATUS_LABEL.baru,
+    formatTanggal(d.created_at),
+  ]);
+  const csv = [header, ...rows]
+    .map((r) =>
+      r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(";"),
+    )
+    .join("\r\n");
+  const blob = new Blob(["\uFEFF" + csv], {
+    type: "text/csv;charset=utf-8;",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `pendaftar-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 export default function Admin() {
@@ -102,6 +155,39 @@ export default function Admin() {
     }
   };
 
+  const updateStatus = async (id, newStatus) => {
+    try {
+      const res = await fetch(`${API_URL}/api/pendaftaran/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": password,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || "Gagal memperbarui status.");
+      await fetchData(password);
+    } catch (err) {
+      window.alert(err.message || "Gagal memperbarui status.");
+    }
+  };
+
+  const deletePendaftar = async (id) => {
+    if (!window.confirm("Yakin ingin menghapus pendaftar ini?")) return;
+    try {
+      const res = await fetch(`${API_URL}/api/pendaftaran/${id}`, {
+        method: "DELETE",
+        headers: { "x-admin-password": password },
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || "Gagal menghapus data.");
+      await fetchData(password);
+    } catch (err) {
+      window.alert(err.message || "Gagal menghapus data.");
+    }
+  };
+
   if (!unlocked) {
     return (
       <section className="w-full flex justify-center px-6 py-16 md:px-12 md:py-24">
@@ -150,16 +236,53 @@ export default function Admin() {
               Total: {data.length} pendaftar
             </p>
           </div>
-          <button
-            onClick={() => {
-              fetchData(password);
-              fetchLogs(password);
-            }}
-            className="btn-template font-semibold md:text-sm"
-          >
-            Refresh
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => exportCsv(data)}
+              disabled={data.length === 0}
+              className="btn-template font-semibold md:text-sm"
+            >
+              Export CSV
+            </button>
+            <button
+              onClick={() => {
+                fetchData(password);
+                fetchLogs(password);
+              }}
+              className="btn-template font-semibold md:text-sm"
+            >
+              Refresh
+            </button>
+          </div>
         </div>
+
+        {status === "ready" && data.length > 0 && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {BIDANG_LIST.map(({ key, label }) => {
+              const count = data.filter((d) => d.bidang === key).length;
+              const pct = Math.round((count / data.length) * 100);
+              return (
+                <div
+                  key={key}
+                  className="bg-white dark:bg-dark-gray rounded-xl shadow p-4"
+                >
+                  <p className="md:text-sm text-black-soft dark:text-light">
+                    {label}
+                  </p>
+                  <p className="mt-1 font-inter text-2xl font-bold text-firstcol">
+                    {count}
+                  </p>
+                  <div className="mt-2 h-2 w-full rounded bg-light dark:bg-black-soft overflow-hidden">
+                    <div
+                      className="h-full bg-firstcol"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {status === "loading" && (
           <p className="text-black-soft dark:text-light md:text-sm">
@@ -186,7 +309,9 @@ export default function Admin() {
                     <th className="px-4 py-3 md:text-sm">WhatsApp</th>
                     <th className="px-4 py-3 md:text-sm">Bidang</th>
                     <th className="px-4 py-3 md:text-sm">Asal</th>
+                    <th className="px-4 py-3 md:text-sm">Status</th>
                     <th className="px-4 py-3 md:text-sm">Tanggal</th>
+                    <th className="px-4 py-3 md:text-sm">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="text-black-soft dark:text-light">
@@ -203,7 +328,42 @@ export default function Admin() {
                       </td>
                       <td className="px-4 py-3 md:text-sm">{d.asal || "-"}</td>
                       <td className="px-4 py-3 md:text-sm">
+                        <span
+                          className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
+                            STATUS_STYLE[d.status] || STATUS_STYLE.baru
+                          }`}
+                        >
+                          {STATUS_LABEL[d.status] || STATUS_LABEL.baru}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 md:text-sm">
                         {formatTanggal(d.created_at)}
+                      </td>
+                      <td className="px-4 py-3 md:text-sm">
+                        <div className="flex flex-wrap gap-1">
+                          {d.status !== "diterima" && (
+                            <button
+                              onClick={() => updateStatus(d.id, "diterima")}
+                              className="rounded px-2 py-1 text-xs font-semibold bg-green-600 text-white hover:bg-green-700"
+                            >
+                              Terima
+                            </button>
+                          )}
+                          {d.status !== "ditolak" && (
+                            <button
+                              onClick={() => updateStatus(d.id, "ditolak")}
+                              className="rounded px-2 py-1 text-xs font-semibold bg-amber-500 text-white hover:bg-amber-600"
+                            >
+                              Tolak
+                            </button>
+                          )}
+                          <button
+                            onClick={() => deletePendaftar(d.id)}
+                            className="rounded px-2 py-1 text-xs font-semibold bg-red-600 text-white hover:bg-red-700"
+                          >
+                            Hapus
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

@@ -5,7 +5,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { getDb } from "../lib/db.js";
-import { validatePendaftaran } from "../lib/pendaftaran.js";
+import { validatePendaftaran, validateStatus } from "../lib/pendaftaran.js";
 import { isPasswordValid } from "../lib/auth.js";
 import { rateLimit } from "../lib/rateLimit.js";
 import { logLogin } from "../lib/log.js";
@@ -103,6 +103,63 @@ app.get("/api/pendaftaran", async (req, res) => {
     const db = await getDb();
     const rs = await db.execute("SELECT * FROM pendaftar ORDER BY id DESC");
     res.json({ data: rs.rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Terjadi kesalahan pada server." });
+  }
+});
+
+app.patch("/api/pendaftaran/:id", async (req, res) => {
+  if (!isPasswordValid(req.get("x-admin-password"))) {
+    return res.status(401).json({ error: "Tidak diizinkan." });
+  }
+
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "ID tidak valid." });
+  }
+
+  const { error, status: newStatus } = validateStatus(req.body?.status);
+  if (error) {
+    return res.status(400).json({ error });
+  }
+
+  try {
+    const db = await getDb();
+    const result = await db.execute({
+      sql: "UPDATE pendaftar SET status = ? WHERE id = ?",
+      args: [newStatus, id],
+    });
+    if (result.rowsAffected === 0) {
+      return res.status(404).json({ error: "Data tidak ditemukan." });
+    }
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Terjadi kesalahan pada server." });
+  }
+});
+
+app.delete("/api/pendaftaran/:id", async (req, res) => {
+  if (!isPasswordValid(req.get("x-admin-password"))) {
+    return res.status(401).json({ error: "Tidak diizinkan." });
+  }
+
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "ID tidak valid." });
+  }
+
+  try {
+    const db = await getDb();
+    const result = await db.execute({
+      sql: "DELETE FROM pendaftar WHERE id = ?",
+      args: [id],
+    });
+    if (result.rowsAffected === 0) {
+      return res.status(404).json({ error: "Data tidak ditemukan." });
+    }
+    res.json({ ok: true });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Terjadi kesalahan pada server." });
