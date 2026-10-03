@@ -1,6 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const TYPED_TEXT = "Kuasai Bidang Teknologi Informasi,\nSiapkan Masa Depanmu.";
+
 export default function Hero() {
+  const [typed, setTyped] = useState("");
+
+  useEffect(() => {
+    let i = 0;
+    let interval;
+    const start = setTimeout(() => {
+      interval = setInterval(() => {
+        i += 1;
+        setTyped(TYPED_TEXT.slice(0, i));
+        if (i >= TYPED_TEXT.length) clearInterval(interval);
+      }, 45);
+    }, 800);
+
+    return () => {
+      clearTimeout(start);
+      if (interval) clearInterval(interval);
+    };
+  }, []);
+
   return (
     <section
       id="herosection"
@@ -20,8 +42,13 @@ export default function Hero() {
 
         <div className="flex flex-wrap justify-center">
           <h1 className="w-full text-center font-bold text-[28px]/[30px] md:text-[40px]/[46px]">
-            Kuasai Bidang Teknologi Informasi, <br />
-            Siapkan Masa Depanmu.
+            {typed.split("\n").map((line, idx, arr) => (
+              <span key={idx}>
+                {line}
+                {idx < arr.length - 1 && <br />}
+              </span>
+            ))}
+            <span className="typewriter-cursor" aria-hidden="true" />
           </h1>
           <p className="text-sm w-full text-center mt-2 mb-8 md:text-base">
             Mulai belajar gratis di{" "}
