@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -34,21 +35,38 @@ function inisial(nama) {
     .toUpperCase();
 }
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 4000,
-  responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: 2 } },
-    { breakpoint: 640, settings: { slidesToShow: 1 } },
-  ],
-};
+function useSlidesToShow() {
+  const compute = () => {
+    if (typeof window === "undefined") return 3;
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  };
+
+  const [slidesToShow, setSlidesToShow] = useState(compute);
+
+  useEffect(() => {
+    const onResize = () => setSlidesToShow(compute());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return slidesToShow;
+}
 
 export default function Testimoni() {
+  const slidesToShow = useSlidesToShow();
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+  };
+
   return (
     <section className="bg-light dark:bg-dark-gray w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container flex justify-center flex-wrap">
@@ -60,12 +78,12 @@ export default function Testimoni() {
           #SemuaBerhakBisa.
         </p>
 
-        <div className="w-full">
+        <div className="w-full testimoni-slider">
           <Slider {...settings}>
             {testimoni.map((t) => (
-              <div key={t.nama} className="px-3">
-                <div className="h-full bg-white dark:bg-black-soft rounded-xl shadow p-6 flex flex-col">
-                  <p className="md:text-sm text-black-soft dark:text-light flex-1">
+              <div key={t.nama} className="px-3 h-full">
+                <div className="h-full w-full bg-white dark:bg-black-soft rounded-xl shadow-md border border-black/5 dark:border-white/10 p-6 flex flex-col">
+                  <p className="text-sm text-pretty break-words text-black-soft dark:text-light flex-1">
                     &ldquo;{t.teks}&rdquo;
                   </p>
                   <div className="mt-4 flex items-center gap-3">

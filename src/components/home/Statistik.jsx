@@ -52,11 +52,17 @@ export default function Statistik() {
   return (
     <section className="bg-light dark:bg-dark-gray w-full flex justify-center px-6 py-16 md:px-12 md:py-20">
       <div className="container">
-        <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-0">
           {statistik.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.1} className="w-40 text-center">
+            <Reveal
+              key={s.label}
+              delay={i * 0.1}
+              className={`text-center ${
+                i > 0 ? "md:border-l md:border-black/10 dark:md:border-white/10" : ""
+              }`}
+            >
               <Counter nilai={s.nilai} suffix={s.suffix} />
-              <p className="mt-1 md:text-sm text-black-soft dark:text-light">
+              <p className="mt-2 text-sm text-black-soft dark:text-light">
                 {s.label}
               </p>
             </Reveal>

@@ -290,6 +290,36 @@ body {
   color: var(--color-firstcol);
 }
 
+/* Kartu testimoni "Kata Mereka" dibuat sama tinggi supaya tidak terpotong di mobile */
+.testimoni-slider .slick-track {
+  display: flex;
+}
+.testimoni-slider .slick-slide {
+  height: auto;
+  flex: 0 0 auto;
+}
+.testimoni-slider .slick-slide > div {
+  height: 100%;
+}
+.testimoni-slider .slick-slide > div > div {
+  height: 100%;
+}
+
+/* Titik navigasi testimoni: beri jarak dari kartu & pertegas state aktif */
+.testimoni-slider .slick-dots {
+  bottom: -36px;
+}
+.testimoni-slider .slick-dots li button:before {
+  font-size: 9px;
+  color: #c7d0da;
+  opacity: 1;
+  transition: color 0.3s ease;
+}
+.testimoni-slider .slick-dots li.slick-active button:before {
+  color: var(--color-firstcol);
+  opacity: 1;
+}
+
 ::-webkit-scrollbar {
   @apply w-2;
 }

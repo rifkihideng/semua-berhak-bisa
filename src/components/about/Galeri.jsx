@@ -20,24 +20,24 @@ export default function Galeri() {
         </h2>
 
         {/* Ganti blok placeholder di bawah dengan <img src="..." alt="..." /> foto kegiatan asli */}
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {kegiatan.map((k, i) => (
             <Reveal
               key={k.judul}
               delay={(i % 3) * 0.1}
-              className="w-full md:w-1/2 lg:w-1/3"
+              className="h-full"
             >
-              <div className="rounded-xl overflow-hidden bg-white dark:bg-dark-gray shadow">
+              <div className="h-full rounded-xl overflow-hidden bg-white dark:bg-dark-gray shadow-md flex flex-col">
                 <div
                   className={`h-40 flex justify-center items-center ${warna[i % warna.length]}`}
                 >
                   <i className="fa-solid fa-camera text-3xl text-white/80"></i>
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex-1">
                   <h3 className="font-bold text-black-soft dark:text-light">
                     {k.judul}
                   </h3>
-                  <p className="text-sm text-black-soft dark:text-light">
+                  <p className="mt-1 text-sm text-black-soft/70 dark:text-light/70">
                     {k.info}
                   </p>
                 </div>
