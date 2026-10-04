@@ -12,7 +12,7 @@ Website resmi komunitas **#SemuaBerhakBisa** — komunitas belajar teknologi inf
 - **Halaman Admin** — kelola pendaftar (status, feedback), ubah status, hapus, export CSV, statistik per bidang, dan log login.
 - **Ketentuan** — alur pendaftaran, jadwal belajar, dan aturan.
 - **Tema terang (soft) & gelap** — toggle tema; mode terang memakai warna hangat yang nyaman di mata (tersimpan di `localStorage`).
-- **Responsif** — tampilan optimal untuk mobile dan desktop.
+- **Responsif** — semua bagian dirapikan agar optimal di mobile, tablet, dan desktop: statistik komunitas tampil 2×2 di mobile dan 1 baris di desktop, slider testimoni menampilkan 1 kartu per layar di mobile dengan tinggi kartu seragam, serta dokumentasi kegiatan berbentuk grid 1/2/3 kolom.
 
 ## Tech Stack
 
@@ -24,7 +24,7 @@ Website resmi komunitas **#SemuaBerhakBisa** — komunitas belajar teknologi inf
 
 ## Menjalankan Secara Lokal
 
-Prasyarat: Node.js 18+ dan npm.
+Prasyarat: Node.js 20.19+ (atau 22.12+) dan npm.
 
 ```bash
 npm install
@@ -130,14 +130,15 @@ Jika backend di-host di domain terpisah, set `VITE_API_URL` di frontend `.env` k
 src/
 ├── components/
 │   ├── about/      # Bagian halaman Tentang (Tujuan, VisiMisi, Mentor, Wilayah, Galeri, FAQ)
-│   ├── common/     # Header & Footer
+│   ├── common/     # Header, Footer, Preloader, BackToTop, WhatsAppFloat, Reveal (animasi)
 │   ├── home/       # Bagian halaman Beranda (Hero, KenapaKami, Statistik, MetodeBelajar, Testimoni, Konsultasi)
 │   └── services/   # Bagian halaman Layanan (Bidang, KerjaSama)
+├── layouts/        # Layout utama aplikasi (MainLayout)
 ├── lib/            # Util frontend (link terpusat & hooks)
 ├── pages/          # Halaman (Home, Tentang, Layanan, Ketentuan, Daftar, Blog, Artikel, Admin, NotFound)
 ├── routes/         # Konfigurasi route
 ├── data/           # Konten blog & artikel
-└── assets/         # Gambar, font, dan styles
+└── assets/         # Gambar (logo, mentor, blog, ikon), font, dan styles
 
 api/                # Vercel Serverless Functions (production)
 ├── health.js
@@ -159,4 +160,20 @@ server/             # Server Express untuk development lokal
 ├── .env
 └── .env.example
 ```
+
+## Changelog
+
+### 2026-10-04
+
+- **Perbaikan tampilan responsif** — slider testimoni "Kata Mereka" kini menampilkan 1 kartu per layar di mobile (sebelumnya 3 kartu menyempit karena breakpoint `react-slick` tidak aktif saat halaman pertama dibuka di perangkat mobile), tinggi kartu seragam, dan dots navigasi dirapikan.
+- **Statistik komunitas** — diubah menjadi grid 2×2 di mobile dan 1 baris 4 kolom di desktop dengan garis pemisah antar kolom serta label yang lebih terbaca.
+- **Dokumentasi kegiatan** — diubah menjadi grid responsif 1/2/3 kolom dengan tinggi kartu seragam.
+
+### 2026-10-03
+
+- Siap deploy ke Vercel: preloader lebih halus, typewriter di judul hero, dan route admin login disamakan dengan fungsi serverless.
+- Tambah blog & artikel edukasi, kolom feedback pada formulir pendaftaran, export CSV, statistik bidang, serta audit log login admin.
+- Perkuat keamanan: rate limiting, security headers, hash + salt untuk password admin, CSP, dan proteksi halaman `/admin`.
+- Rapikan tema soft (terang/gelap), carousel, dan seluruh section.
+
 
