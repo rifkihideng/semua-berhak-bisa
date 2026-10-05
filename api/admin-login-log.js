@@ -1,13 +1,14 @@
 import { getDb } from "../lib/db.js";
-import { isPasswordValid } from "../lib/auth.js";
+import { adminGuard } from "../lib/adminGuard.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return send(res, 405, { error: "Method tidak diizinkan." });
   }
 
-  if (!isPasswordValid(req.headers["x-admin-password"])) {
-    return send(res, 401, { error: "Tidak diizinkan." });
+  const denied = adminGuard(req);
+  if (denied) {
+    return send(res, denied.status, { error: denied.error });
   }
 
   const db = await getDb();

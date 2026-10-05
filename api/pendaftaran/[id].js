@@ -1,11 +1,12 @@
 import { getDb } from "../../lib/db.js";
-import { isPasswordValid } from "../../lib/auth.js";
+import { adminGuard } from "../../lib/adminGuard.js";
 import { validateStatus } from "../../lib/pendaftaran.js";
 
 // Vercel: /api/pendaftaran/[id] — ubah status (PATCH) atau hapus (DELETE)
 export default async function handler(req, res) {
-  if (!isPasswordValid(req.headers["x-admin-password"])) {
-    return send(res, 401, { error: "Tidak diizinkan." });
+  const denied = adminGuard(req);
+  if (denied) {
+    return send(res, denied.status, { error: denied.error });
   }
 
   const id = Number(req.query.id);

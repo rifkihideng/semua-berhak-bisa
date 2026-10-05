@@ -38,6 +38,14 @@ function formatTanggal(s) {
   });
 }
 
+function sanitizeCsvCell(cell) {
+  const str = String(cell);
+  // Cegah formula injection: netralkan sel yang diawali karakter formula
+  // (=, +, -, @, tab, CR) agar tidak dieksekusi oleh spreadsheet.
+  const safe = /^[=+\-@\t\r]/.test(str) ? "'" + str : str;
+  return `"${safe.replace(/"/g, '""')}"`;
+}
+
 function exportCsv(data) {
   const header = [
     "No",
@@ -60,9 +68,7 @@ function exportCsv(data) {
     formatTanggal(d.created_at),
   ]);
   const csv = [header, ...rows]
-    .map((r) =>
-      r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(";"),
-    )
+    .map((r) => r.map(sanitizeCsvCell).join(";"))
     .join("\r\n");
   const blob = new Blob(["\uFEFF" + csv], {
     type: "text/csv;charset=utf-8;",

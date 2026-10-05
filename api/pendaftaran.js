@@ -1,12 +1,13 @@
 import { getDb } from "../lib/db.js";
 import { validatePendaftaran } from "../lib/pendaftaran.js";
-import { isPasswordValid } from "../lib/auth.js";
+import { adminGuard } from "../lib/adminGuard.js";
 import { rateLimit } from "../lib/rateLimit.js";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    if (!isPasswordValid(req.headers["x-admin-password"])) {
-      return send(res, 401, { error: "Tidak diizinkan." });
+    const denied = adminGuard(req);
+    if (denied) {
+      return send(res, denied.status, { error: denied.error });
     }
     const db = await getDb();
     const rs = await db.execute("SELECT * FROM pendaftar ORDER BY id DESC");
