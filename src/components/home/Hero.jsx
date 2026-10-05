@@ -68,7 +68,7 @@ export default function Hero() {
             </h3>
           </div>
 
-          <div className="flex justify-center flex-wrap gap-x-8 gap-y-6">
+          <div className="grid grid-cols-2 gap-3 md:flex md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-6">
             <AkademiItem
               icon=""
               iconType="fa-solid"
@@ -112,7 +112,7 @@ function AkademiItem({ icon, iconType, title, color, padding, bidang }) {
   return (
     <Link
       to={`/layanan?bidang=${bidang}`}
-      className={`flex items-center ${padding} shadow-md rounded border-2 ${color} transition-all md:py-2`}
+      className={`flex items-center justify-center text-center ${padding} shadow-md rounded border-2 ${color} transition-all md:py-2`}
     >
       <i className={`${iconType} text-[16px] text-black-soft dark:text-light`}>
         {icon}
